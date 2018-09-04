@@ -9,10 +9,8 @@ import java.util.HashMap;
  * Ein model.Schneidplan definiert verschiedene Informationen bestehnd aus einem Kopf und mehreren Einzelteilen
  */
 
-public class Schneidplan {
-    //hashmap to triggerSetMethodMap attributes to tabl elemetns
-    private HashMap<String, Method> triggerSetMethodMap;
-    //Informationen aus dem Kopf
+public class Schneidplan extends Parsable{
+   //Informationen aus dem Kopf
     private String programmname;
     private String material_id;
     private String zuschnitt;
@@ -35,11 +33,8 @@ public class Schneidplan {
         }
     }
 
-    /**
-     * Inits the map with trigger phrases an decides wich method to call, according to those
-     * @throws NoSuchMethodException
-     */
-    private void initMap() throws NoSuchMethodException {
+
+    void initMap() throws NoSuchMethodException {
        triggerSetMethodMap.put("PROGRAMMNAME:",this.getClass().getMethod("setProgrammname", String.class));
        triggerSetMethodMap.put("MATERIAL-ID (TAFEL):",this.getClass().getMethod("setMaterial_id", String.class));
        triggerSetMethodMap.put("ZUSCHNITT:",this.getClass().getMethod("setZuschnitt", String.class));
@@ -51,22 +46,8 @@ public class Schneidplan {
        triggerSetMethodMap.put("VERSCHNITT:",this.getClass().getMethod("setVerschnitt", String.class));
     }
 
-    /**
-     * Gets a trigger phrase and the content and fills the correct field, using the map.
-     * @param trigger
-     * @param content
-     */
-    public void setAttribute(String trigger, String content){
-        Method actualmethod=triggerSetMethodMap.get(trigger);
-        if (actualmethod != null) {
-            try {
-                actualmethod.invoke(this,content);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                System.out.println("Irgendwas lief hier sehr schief!");
-                e.printStackTrace();
-            }
-        }
-    }
+
+
 
     public String getProgrammname() {
         return programmname;

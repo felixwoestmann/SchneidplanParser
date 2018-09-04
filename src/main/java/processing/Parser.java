@@ -12,7 +12,8 @@ import java.util.ArrayList;
 public class Parser {
     private final String ENCODING="UTF-8";
 
-    private ArrayList<Einzelteil> parseEinzelteile(){
+    private ArrayList<Einzelteil> parseEinzelteile(Element einzelteile){
+
         return null;
     }
 
