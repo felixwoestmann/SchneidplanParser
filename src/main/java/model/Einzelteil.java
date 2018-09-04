@@ -36,7 +36,7 @@ public class Einzelteil extends Parsable {
      * @throws NoSuchMethodException
      */
     void initMap() throws NoSuchMethodException {
-        triggerSetMethodMap.put("Anzahl:", this.getClass().getMethod("setAnazhl", String.class));
+        triggerSetMethodMap.put("ANZAHL:", this.getClass().getMethod("setAnazhl", String.class));
         triggerSetMethodMap.put("ABMESSUNGEN:", this.getClass().getMethod("setAbmessungen", String.class));
         triggerSetMethodMap.put("FLAECHE:", this.getClass().getMethod("setFlaeche", String.class));
         triggerSetMethodMap.put("BEARBEITUNGSZEIT:", this.getClass().getMethod("setBearbeitungszeit", String.class));

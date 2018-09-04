@@ -30,9 +30,7 @@ public class TestParser {
         checkFilledSchneidplan(schneidplan);
     }
 
-    /**
-     * Test if all fields of Schneidplan are filled.
-     */
+
     @Test
     public void testSchneidplanFilledWithHTML_2() {
         Parser parser = new Parser();
@@ -56,6 +54,10 @@ public class TestParser {
         checkFilledEinzelteil(einzelteile);
     }
 
+    /**
+     * Check if every Filed of Einzelteil is filled
+     * @param einzelteile
+     */
     private void checkFilledEinzelteil(ArrayList<Einzelteil> einzelteile) {
         for (Einzelteil teil : einzelteile) {
             assertNotNull(teil.getAbmessungen());
@@ -71,6 +73,10 @@ public class TestParser {
         }
     }
 
+    /**
+     * Check if every Filed of Schneideplan is filled
+     * @param schneidplan
+     */
     private void checkFilledSchneidplan(Schneidplan schneidplan) {
         assertNotNull(schneidplan.getAnzahl_programmdurchlaeufe());
         assertNotNull(schneidplan.getGesamtschnittlaenge());
@@ -84,6 +90,7 @@ public class TestParser {
 
 
     }
+
 
 
 }
