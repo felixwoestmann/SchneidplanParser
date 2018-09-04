@@ -1,3 +1,5 @@
+package processing;
+
 import model.Einzelteil;
 import model.Schneidplan;
 import org.jsoup.Jsoup;
@@ -10,30 +12,30 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Parser {
-    private final String ENCODING="UTF-8";
+    private final String ENCODING = "UTF-8";
 
-    private ArrayList<Einzelteil> parseEinzelteile(Element einzelteile){
+    private ArrayList<Einzelteil> parseEinzelteile(Element einzelteile) {
 
         return null;
     }
 
-    private Einzelteil parseEinzelteil(){
+    private Einzelteil parseEinzelteil() {
         return null;
     }
 
     private Schneidplan parseSchneideplanHead(Element headertable) {
-        Schneidplan schneidplan=new Schneidplan();
+        Schneidplan schneidplan = new Schneidplan();
         //get all tablerows
-        Elements tablerows= headertable.select("tr");
+        Elements tablerows = headertable.select("tr");
         //get all table cells of row
         for (Element tablerow : tablerows) {
-            Elements cells=tablerow.select("td");
+            Elements cells = tablerow.select("td");
             //only add if the row got at least two cells
-            if(cells.size()>=2){
-                String trigger=cells.get(0).text();
-                String content=cells.get(1).text();
-                trigger=removeWeirdWhitespace(trigger);
-                schneidplan.setAttribute(trigger,content);
+            if (cells.size() >= 2) {
+                String trigger = cells.get(0).text();
+                String content = cells.get(1).text();
+                trigger = removeWeirdWhitespace(trigger);
+                schneidplan.setAttribute(trigger, content);
             }
 
         }
@@ -41,28 +43,34 @@ public class Parser {
 
     }
 
-    private String removeWeirdWhitespace(String string){
-        return string.substring(0,string.length()-1);
+    /**
+     * From Table extracted phrases semm to have an whitespace, which won't correspond to the normal whitespace ascii code.
+     * Therefore this method exists.
+     * @param string
+     * @return
+     */
+    private String removeWeirdWhitespace(String string) {
+        return string.substring(0, string.length() - 1);
     }
 
     public Schneidplan parseSchneidplan(String path) {
         File input = new File(path);
         Document complete_html;
         try {
-            complete_html= Jsoup.parse(input,ENCODING);
+            complete_html = Jsoup.parse(input, ENCODING);
         } catch (IOException e) {
             System.out.println("Datei kann nicht geladen werden!");
             e.printStackTrace();
             return null;
         }
 
-        Elements tables= complete_html.select("table");
+        Elements tables = complete_html.select("table");
         //meta information from second table in document
-        Element head=tables.get(1);
+        Element head = tables.get(1);
         //information about einzelteile from 4th table in document
-        Element einzelteile=tables.get(3);
+        Element einzelteile = tables.get(3);
 
-        Schneidplan schneideplan= parseSchneideplanHead(head);
+        Schneidplan schneideplan = parseSchneideplanHead(head);
         schneideplan.setEinzelteile(parseEinzelteile(Element einzelteile));
         return schneideplan;
     }
