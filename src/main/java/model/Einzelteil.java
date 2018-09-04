@@ -1,5 +1,7 @@
 package model;
 
+import com.opencsv.bean.CsvBindByName;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -9,14 +11,23 @@ import java.util.HashMap;
  */
 public class Einzelteil extends Parsable {
 
+    @CsvBindByName
     private String anazhl;
+    @CsvBindByName
     private String abmessungen;
+    @CsvBindByName
     private String flaeche;
+    @CsvBindByName
     private String bearbeitungszeit;
+    @CsvBindByName
     private String schneidlaenge;
+    @CsvBindByName
     private String gewicht;
+    @CsvBindByName
     private String anzahl_einstechpunkte;
+    @CsvBindByName
     private String einstechzeit;
+    @CsvBindByName
     private String geofilename;
 
 
