@@ -35,25 +35,25 @@ public class Parser {
         Elements tablerows = einzelteile.select("tr");
         tablerows.remove(0);
         for (Element tablerow : tablerows) {
-            //does new table of einzelteile start ?
-            if (tablerow.childNodeSize() == (3*2)) {
-                //new table, but list is empty? just add elements
-                if (subtable.isEmpty()) {
-                    subtable.add(tablerow);
-                } else {
+            //does a new table of einzelteile start ?
+            //becuas every td element contains a font element the size is effectivly doubled
+            if (tablerow.childNodeSize() == (3 * 2)) {
+                if (!subtable.isEmpty()) {
                     //new table, but list is filled? Parse list and empty list
                     einzelteilList.add(parseEinzelteil(subtable));
                     subtable = new ArrayList<>();
                 }
-            } else {
-                subtable.add(tablerow);
+
             }
+            subtable.add(tablerow);
+
         }
         return einzelteilList;
     }
 
     /**
      * Parses one subtable to an Einzelteil Object
+     *
      * @param tablerows
      * @return
      */
@@ -105,7 +105,7 @@ public class Parser {
      */
     private String removeWeirdWhitespace(String string) {
         //return string.substring(0, string.length() - 1);
-        return string.replace("\u00a0","");
+        return string.replace("\u00a0", "");
     }
 
     public Schneidplan parseSchneidplan(String path) {
