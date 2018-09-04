@@ -62,7 +62,7 @@ public class Parser {
         Element einzelteile=tables.get(3);
 
         Schneidplan schneideplan= parseSchneideplanHead(head);
-
-        return null;
+        schneideplan.setEinzelteile(parseEinzelteile(Element einzelteile));
+        return schneideplan;
     }
 }
