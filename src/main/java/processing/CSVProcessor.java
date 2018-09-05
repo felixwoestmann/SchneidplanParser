@@ -14,21 +14,38 @@ import java.nio.file.Paths;
 
 public class CSVProcessor {
 
-    public void write() throws IOException, CsvDataTypeMismatchException, CsvRequiredFieldEmptyException {
-        Parser parser = new Parser();
-        Schneidplan schneidplan = parser.parseSchneidplan("Reference/einrichteplan_1.htm");
+    public String writeToString(Schneidplan schneidplan) {
+        StringWriter writer=new StringWriter();
+        write(schneidplan,writer);
+        return writer.toString();
+    }
 
-        try (
-                Writer writer = new FileWriter("beans.csv");
-        ) {
-            StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer)
-                    .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
-                    .build();
-
-
-
-            beanToCsv.write(schneidplan.getEinzelteile());
-
+    public void writeToFile(Schneidplan schneidplan, String path) {
+        FileWriter writer= null;
+        try {
+            writer = new FileWriter(path);
+        } catch (IOException e) {
+            System.out.println("Etwas lief schief!");
+            e.printStackTrace();
         }
+        write(schneidplan,writer);
+    }
+
+    private void write(Schneidplan schneidplan, Writer writer) {
+
+
+        StatefulBeanToCsv beanToCsv = new StatefulBeanToCsvBuilder(writer)
+                .withQuotechar(CSVWriter.NO_QUOTE_CHARACTER)
+                .build();
+
+
+        try {
+            beanToCsv.write(schneidplan.getEinzelteile());
+        } catch (CsvDataTypeMismatchException | CsvRequiredFieldEmptyException e) {
+            System.out.println("Etwas lief schief");
+            e.printStackTrace();
+        }
+
+
     }
 }
