@@ -63,6 +63,8 @@ public class SchneidplanGUI extends Application {
         rootLayout = loader.load();
         Scene scene = new Scene(rootLayout);
         stage.setScene(scene);
+        stage.setResizable(false);
+        stage.sizeToScene();
         stage.show();
     }
 
@@ -110,17 +112,14 @@ public class SchneidplanGUI extends Application {
         String path = openFileChooser("HTML", "*.htm", FileActionType.OPEN);
         if (path != null) {
             locationOfHTML.setText(path);
-
-
             File file = new File(path);
-            URL url= null;
+            URL url = null;
             try {
                 htmlPreview.load(file.toURI().toURL().toString());
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
         }
-
 
 
     }
