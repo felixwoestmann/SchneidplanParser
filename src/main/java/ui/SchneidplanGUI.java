@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -15,6 +16,7 @@ import processing.Parser;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SchneidplanGUI extends Application {
@@ -24,7 +26,7 @@ public class SchneidplanGUI extends Application {
     private Button chooseHTMLFile;
     private TextField locationOfHTML;
     private Button convert;
-    private WebView htmlPreview;
+    private WebEngine htmlPreview;
     //
     private Button saveCSV;
     private TextField locationOfCSV;
@@ -75,8 +77,8 @@ public class SchneidplanGUI extends Application {
         GridPane importGrid = (GridPane) ((AnchorPane) rootLayout.getItems().get(0)).getChildren().get(0);
         chooseHTMLFile = (Button) importGrid.getChildren().get(0);
         locationOfHTML = (TextField) importGrid.getChildren().get(1);
-        htmlPreview = (WebView) importGrid.getChildren().get(2);
-        convert= (Button) importGrid.getChildren().get(3);
+        htmlPreview = ((WebView) importGrid.getChildren().get(2)).getEngine();
+        convert = (Button) importGrid.getChildren().get(3);
         //bottom pane
         GridPane exportGrid = (GridPane) ((AnchorPane) rootLayout.getItems().get(1)).getChildren().get(0);
         saveCSV = (Button) exportGrid.getChildren().get(0);
@@ -86,36 +88,51 @@ public class SchneidplanGUI extends Application {
 
     private void setUpFunctionality() {
         //load the document and display the conversion in the csv window
-        convert.setOnAction(actionEvent -> convert());
+        convert.setOnAction(actionEvent -> convertAction());
         //let the user choose a file and set the path into the text field and display it as preview
-        chooseHTMLFile.setOnAction(actionEvent -> {
-            String path=openFileChooser("HTML","*.htm",FileActionType.OPEN);
-             locationOfHTML.setText(path);
-          htmlPreview.getEngine().load(path);
-        });
+        chooseHTMLFile.setOnAction(actionEvent -> chooseHTMLFileAction());
         //let the user choose the location oh where to write the file
-        saveCSV.setOnAction(actionEvent -> {
-            String path=openFileChooser("CSV","*.csv", FileActionType.SAVE);
-            locationOfCSV.setText(path);
-            csvProcessor.writeToFile(schneidplan,path);
-        });
+        saveCSV.setOnAction(actionEvent -> saveCSVAction());
     }
 
-    private void convert(){
-        schneidplan=parser.parseSchneidplan(locationOfHTML.getText());
-        showCSVPreview();
-    }
-    private void showCSVPreview() {
+    private void convertAction() {
+        schneidplan = parser.parseSchneidplan(locationOfHTML.getText());
         csvPreview.setText(csvProcessor.writeToString(schneidplan));
     }
-    private String openFileChooser(String showType, String filetype,FileActionType type){
+
+    private void saveCSVAction() {
+        String path = openFileChooser("CSV", "*.csv", FileActionType.SAVE);
+        locationOfCSV.setText(path);
+        csvProcessor.writeToFile(schneidplan, path);
+    }
+
+    private void chooseHTMLFileAction() {
+        String path = openFileChooser("HTML", "*.htm", FileActionType.OPEN);
+        if (path != null) {
+            locationOfHTML.setText(path);
+
+
+            File file = new File(path);
+            URL url= null;
+            try {
+                htmlPreview.load(file.toURI().toURL().toString());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+    }
+
+    private String openFileChooser(String showType, String filetype, FileActionType type) {
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(showType, filetype);
         fileChooser.getExtensionFilters().add(extFilter);
 
-        switch (type){
+        switch (type) {
             case OPEN:
-               return fileChooser.showOpenDialog(stage).getAbsolutePath();
+                return fileChooser.showOpenDialog(stage).getAbsolutePath();
 
             case SAVE:
                 return fileChooser.showSaveDialog(stage).getAbsolutePath();
