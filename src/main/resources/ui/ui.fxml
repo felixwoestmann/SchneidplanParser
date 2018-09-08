@@ -40,7 +40,7 @@
               GridPane.halignment="LEFT" GridPane.hgrow="ALWAYS" GridPane.valignment="TOP"
               GridPane.vgrow="ALWAYS"/>
             <WebView fx:id="webview" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1"
-              GridPane.rowSpan="2"/>
+              GridPane.rowSpan="2" GridPane.columnSpan="2"/>
 
           </children>
         </GridPane>
@@ -73,7 +73,7 @@
               prefWidth="1.111111111111111E15" promptText="Speicherort" GridPane.halignment="LEFT"
               GridPane.hgrow="ALWAYS" GridPane.valignment="TOP" GridPane.vgrow="ALWAYS"/>
             <TextArea fx:id="csvpreview" prefHeight="200.0" prefWidth="200.0"
-              GridPane.rowIndex="1"/>
+              GridPane.rowIndex="1" GridPane.columnSpan="2"/>
 
           </children>
         </GridPane>
