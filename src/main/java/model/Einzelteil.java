@@ -4,39 +4,41 @@ import com.opencsv.bean.CsvBindByName;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * Klasse beschreibt ein model.Einzelteil eines Schneidplans
  */
 public class Einzelteil extends Parsable {
 
-    @CsvBindByName
+
     private String anazhl;
-    @CsvBindByName
+
     private String abmessungen;
-    @CsvBindByName
+
     private String flaeche;
-    @CsvBindByName
+
     private String bearbeitungszeit;
-    @CsvBindByName
+
     private String schneidlaenge;
-    @CsvBindByName
+
     private String gewicht;
-    @CsvBindByName
+
     private String anzahl_einstechpunkte;
-    @CsvBindByName
+
     private String einstechzeit;
-    @CsvBindByName
+
     private String geofilename;
 
 
     public Einzelteil() {
-        triggerSetMethodMap = new HashMap<>();
+        triggerSetFieldMap = new HashMap<>();
         try {
             initMap();
-        } catch (NoSuchMethodException e) {
-            System.out.println("Diese Methode gibt es nicht.");
+        } catch (NoSuchFieldException e) {
             e.printStackTrace();
         }
     }
@@ -46,16 +48,29 @@ public class Einzelteil extends Parsable {
      *
      * @throws NoSuchMethodException
      */
-    void initMap() throws NoSuchMethodException {
-        triggerSetMethodMap.put("ANZAHL:", this.getClass().getMethod("setAnazhl", String.class));
-        triggerSetMethodMap.put("ABMESSUNGEN:", this.getClass().getMethod("setAbmessungen", String.class));
-        triggerSetMethodMap.put("FLAECHE:", this.getClass().getMethod("setFlaeche", String.class));
-        triggerSetMethodMap.put("BEARBEITUNGSZEIT:", this.getClass().getMethod("setBearbeitungszeit", String.class));
-        triggerSetMethodMap.put("SCHNEIDLAENGE:", this.getClass().getMethod("setSchneidlaenge", String.class));
-        triggerSetMethodMap.put("GEWICHT:", this.getClass().getMethod("setGewicht", String.class));
-        triggerSetMethodMap.put("ANZAHL EINSTECHPUNKTE:", this.getClass().getMethod("setAnzahl_einstechpunkte", String.class));
-        triggerSetMethodMap.put("EINSTECHZEIT", this.getClass().getMethod("setEinstechzeit", String.class));
-        triggerSetMethodMap.put("GEOFILENAME:", this.getClass().getMethod("setGeofilename", String.class));
+    void initMap() throws NoSuchFieldException {
+        Class thisclass = this.getClass();
+        triggerSetFieldMap.put("ANZAHL:", thisclass.getDeclaredField("anazhl"));
+        triggerSetFieldMap.put("ABMESSUNGEN:", thisclass.getDeclaredField("abmessungen"));
+        triggerSetFieldMap.put("FLAECHE:", thisclass.getDeclaredField("flaeche"));
+        triggerSetFieldMap.put("BEARBEITUNGSZEIT:", thisclass.getDeclaredField("bearbeitungszeit"));
+        triggerSetFieldMap.put("SCHNEIDLAENGE:", thisclass.getDeclaredField("schneidlaenge"));
+        triggerSetFieldMap.put("GEWICHT:", thisclass.getDeclaredField("gewicht"));
+        triggerSetFieldMap.put("ANZAHL EINSTECHPUNKTE:", thisclass.getDeclaredField("anzahl_einstechpunkte"));
+        triggerSetFieldMap.put("EINSTECHZEIT", thisclass.getDeclaredField("einstechzeit"));
+        triggerSetFieldMap.put("GEOFILENAME:", thisclass.getDeclaredField("geofilename"));
+    }
+
+    @Override
+    List<String[]> toCSV() {
+        ArrayList<String[]> list = new ArrayList<>();
+        triggerSetFieldMap.keySet().forEach(s -> {
+            String[] row = new String[2];
+            row[0] = s;
+            row[1] = String.valueOf(triggerSetFieldMap.get(s));
+            list.add(row);
+        });
+        return list;
     }
 
 
@@ -63,71 +78,41 @@ public class Einzelteil extends Parsable {
         return anazhl;
     }
 
-    public void setAnazhl(String anazhl) {
-        this.anazhl = anazhl;
-    }
-
     public String getAbmessungen() {
         return abmessungen;
     }
 
-    public void setAbmessungen(String abmessungen) {
-        this.abmessungen = abmessungen;
-    }
 
     public String getFlaeche() {
         return flaeche;
     }
 
-    public void setFlaeche(String flaeche) {
-        this.flaeche = flaeche;
-    }
 
     public String getBearbeitungszeit() {
         return bearbeitungszeit;
     }
 
-    public void setBearbeitungszeit(String bearbeitungszeit) {
-        this.bearbeitungszeit = bearbeitungszeit;
-    }
 
     public String getSchneidlaenge() {
         return schneidlaenge;
     }
 
-    public void setSchneidlaenge(String schneidlaenge) {
-        this.schneidlaenge = schneidlaenge;
-    }
 
     public String getGewicht() {
         return gewicht;
     }
 
-    public void setGewicht(String gewicht) {
-        this.gewicht = gewicht;
-    }
 
     public String getAnzahl_einstechpunkte() {
         return anzahl_einstechpunkte;
-    }
-
-    public void setAnzahl_einstechpunkte(String anzahl_einstechpunkte) {
-        this.anzahl_einstechpunkte = anzahl_einstechpunkte;
     }
 
     public String getEinstechzeit() {
         return einstechzeit;
     }
 
-    public void setEinstechzeit(String einstechzeit) {
-        this.einstechzeit = einstechzeit;
-    }
-
     public String getGeofilename() {
         return geofilename;
     }
 
-    public void setGeofilename(String geofilename) {
-        this.geofilename = geofilename;
-    }
 }
