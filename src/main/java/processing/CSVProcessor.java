@@ -1,10 +1,6 @@
 package processing;
 
-import com.opencsv.CSVWriter;
-import com.opencsv.bean.StatefulBeanToCsv;
-import com.opencsv.bean.StatefulBeanToCsvBuilder;
-import com.opencsv.exceptions.CsvDataTypeMismatchException;
-import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+
 import model.Einzelteil;
 import model.Schneidplan;
 
@@ -35,9 +31,7 @@ public class CSVProcessor {
     }
 
 
-
-
-    private void write(Schneidplan schneidplan, Writer writer)  {
+    private void write(Schneidplan schneidplan, Writer writer) {
         StringBuilder sb = new StringBuilder();
         //addheadings
         appendLine(sb, "Beschreibung:", "Wert:");
