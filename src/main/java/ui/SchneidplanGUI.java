@@ -59,6 +59,7 @@ public class SchneidplanGUI extends Application {
         URL url = this.getClass().getResource("ui.fxml");
         loader.setLocation(url);
         SplitPane rootLayout = loader.load();
+        stage.setResizable(false);
         Scene scene = new Scene(rootLayout);
         stage.setScene(scene);
         stage.show();
@@ -99,9 +100,13 @@ public class SchneidplanGUI extends Application {
     }
 
     private void saveCSVAction() {
-        String path = openFileChooser("CSV", "*.csv", FileActionType.SAVE);
-        locationOfCSV.setText(path);
-        csvProcessor.writeToFile(schneidplan, path);
+        if (schneidplan != null) {
+            String path = openFileChooser("CSV", "*.csv", FileActionType.SAVE);
+            locationOfCSV.setText(path);
+            csvProcessor.writeToFile(schneidplan, path);
+        }else {
+            showError("Es muss zuerst ein Schneidplan geladen werden!");
+        }
     }
 
     private void chooseHTMLFileAction() {
