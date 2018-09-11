@@ -38,9 +38,11 @@ public class CSVProcessor {
         schneidplan.toCSV().forEach(strings -> appendLine(sb, strings[0], strings[1]));
         try {
             writer.write(sb.toString());
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private void appendLine(StringBuilder sb, String leftcolumn, String rightcolumn) {
