@@ -14,15 +14,15 @@ import java.util.function.Consumer;
 
 public class Schneidplan extends Parsable {
     //Informationen aus dem Kopf
-     String programmname;
-     String material_id;
-     String zuschnitt;
-     String mindestzuschnitt;
-     String gewicht;
-     String maschinenzeit;
-     String gesamtschnittlaenge;
-     String anzahl_programmdurchlaeufe;
-     String verschnitt;
+    String programmname;
+    String material_id;
+    String zuschnitt;
+    String mindestzuschnitt;
+    String gewicht;
+    String maschinenzeit;
+    String gesamtschnittlaenge;
+    String anzahl_programmdurchlaeufe;
+    String verschnitt;
 
     private ArrayList<Einzelteil> einzelteile;
 
@@ -50,17 +50,10 @@ public class Schneidplan extends Parsable {
     }
 
     @Override
- public    List<String[]> toCSV() {
+    public List<String[]> toCSV() {
         ArrayList<String[]> list = new ArrayList<>();
         //turn fields into rows
-        triggerSetFieldMap.keySet().forEach(s -> {
-            String[] row = new String[2];
-            row[0] = s;
-            row[1] = triggerSetFieldMap.get(s).getName();
-            list.add(row);
-        });
-
-
+        list.addAll(getCSVFromMap());
         //add divider
         String[] row = new String[2];
         row[0] = "Einzelteile:";

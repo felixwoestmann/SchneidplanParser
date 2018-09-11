@@ -55,14 +55,7 @@ public class Einzelteil extends Parsable {
 
     @Override
     List<String[]> toCSV() {
-        ArrayList<String[]> list = new ArrayList<>();
-        triggerSetFieldMap.keySet().forEach(s -> {
-            String[] row = new String[2];
-            row[0] = s;
-            row[1] = String.valueOf(triggerSetFieldMap.get(s));
-            list.add(row);
-        });
-        return list;
+       return getCSVFromMap();
     }
 
 

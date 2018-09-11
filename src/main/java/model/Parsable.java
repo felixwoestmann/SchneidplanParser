@@ -3,6 +3,7 @@ package model;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,6 +37,21 @@ public abstract class Parsable {
                 e.printStackTrace();
             }
         }
+    }
+
+    List<String[]> getCSVFromMap() {
+        ArrayList<String[]> list = new ArrayList<>();
+        triggerSetFieldMap.keySet().forEach(s -> {
+            String[] row = new String[2];
+            row[0] = s;
+            try {
+                row[1] = String.valueOf(triggerSetFieldMap.get(s).get(this));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            list.add(row);
+        });
+        return list;
     }
 
     abstract List<String[]> toCSV();
