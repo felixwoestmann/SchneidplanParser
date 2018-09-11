@@ -51,9 +51,8 @@ public class Schneidplan extends Parsable {
 
     @Override
     public List<String[]> toCSV() {
-        ArrayList<String[]> list = new ArrayList<>();
         //turn fields into rows
-        list.addAll(getCSVFromMap());
+        ArrayList<String[]> list = new ArrayList<>(getCSVFromMap());
         //add divider
         String[] row = new String[2];
         row[0] = "Einzelteile:";
