@@ -14,15 +14,15 @@ import java.util.function.Consumer;
 
 public class Schneidplan extends Parsable {
     //Informationen aus dem Kopf
-    private String programmname;
-    private String material_id;
-    private String zuschnitt;
-    private String mindestzuschnitt;
-    private String gewicht;
-    private String maschinenzeit;
-    private String gesamtschnittlaenge;
-    private String anzahl_programmdurchlaeufe;
-    private String verschnitt;
+     String programmname;
+     String material_id;
+     String zuschnitt;
+     String mindestzuschnitt;
+     String gewicht;
+     String maschinenzeit;
+     String gesamtschnittlaenge;
+     String anzahl_programmdurchlaeufe;
+     String verschnitt;
 
     private ArrayList<Einzelteil> einzelteile;
 
@@ -46,11 +46,11 @@ public class Schneidplan extends Parsable {
         triggerSetFieldMap.put("MASCHINENZEIT:", thisclass.getDeclaredField("maschinenzeit"));
         triggerSetFieldMap.put("GESAMTSCHNITTLAENGE:", thisclass.getDeclaredField("gesamtschnittlaenge"));
         triggerSetFieldMap.put("ANZAHL DER PROGRAMMDURCHLAEUFE:", thisclass.getDeclaredField("anzahl_programmdurchlaeufe"));
-        triggerSetFieldMap.put("VERSCHNITT:", thisclass.getDeclaredField(verschnitt));
+        triggerSetFieldMap.put("VERSCHNITT:", thisclass.getDeclaredField("verschnitt"));
     }
 
     @Override
-    List<String[]> toCSV() {
+ public    List<String[]> toCSV() {
         ArrayList<String[]> list = new ArrayList<>();
         //turn fields into rows
         triggerSetFieldMap.keySet().forEach(s -> {
