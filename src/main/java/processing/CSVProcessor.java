@@ -1,14 +1,12 @@
 package processing;
 
 
-import model.Einzelteil;
 import model.Schneidplan;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.function.Consumer;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 
 public class CSVProcessor {
     private final String SEPERATOR = ",";

@@ -6,14 +6,11 @@ import model.Schneidplan;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.nodes.TextNode;
 import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class Parser {
     private final String ENCODING = "UTF-8";

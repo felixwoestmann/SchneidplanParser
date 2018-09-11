@@ -1,14 +1,11 @@
 import model.Einzelteil;
-import model.Parsable;
 import model.Schneidplan;
 import org.junit.Test;
 import processing.Parser;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertNotNull;
-import static junit.framework.TestCase.assertTrue;
 
 public class TestParser {
 
@@ -56,6 +53,7 @@ public class TestParser {
 
     /**
      * Check if every Filed of Einzelteil is filled
+     *
      * @param einzelteile
      */
     private void checkFilledEinzelteil(ArrayList<Einzelteil> einzelteile) {
@@ -75,6 +73,7 @@ public class TestParser {
 
     /**
      * Check if every Filed of Schneideplan is filled
+     *
      * @param schneidplan
      */
     private void checkFilledSchneidplan(Schneidplan schneidplan) {
@@ -90,7 +89,6 @@ public class TestParser {
 
 
     }
-
 
 
 }

@@ -1,13 +1,8 @@
 package model;
 
 
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * Klasse beschreibt ein model.Einzelteil eines Schneidplans
@@ -15,15 +10,15 @@ import java.util.function.Consumer;
 public class Einzelteil extends Parsable {
 
 
-     String anazhl;
-     String abmessungen;
-     String flaeche;
-     String bearbeitungszeit;
-     String schneidlaenge;
-     String gewicht;
-     String anzahl_einstechpunkte;
-     String einstechzeit;
-     String geofilename;
+    String anazhl;
+    String abmessungen;
+    String flaeche;
+    String bearbeitungszeit;
+    String schneidlaenge;
+    String gewicht;
+    String anzahl_einstechpunkte;
+    String einstechzeit;
+    String geofilename;
 
 
     public Einzelteil() {
@@ -55,7 +50,7 @@ public class Einzelteil extends Parsable {
 
     @Override
     List<String[]> toCSV() {
-       return getCSVFromMap();
+        return getCSVFromMap();
     }
 
 

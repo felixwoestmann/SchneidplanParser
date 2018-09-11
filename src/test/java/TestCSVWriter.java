@@ -1,9 +1,3 @@
-
-import org.junit.Test;
-import processing.CSVProcessor;
-
-import java.io.IOException;
-
 public class TestCSVWriter {
     /**
      *
