@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 import model.Schneidplan;
 import processing.CSVProcessor;
 import processing.Parser;
+import processing.Processor;
+import processing.XLXSProcessor;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +33,8 @@ public class SchneidplanGUI extends Application {
     private TextArea csvPreview;
     //
     private Parser parser;
-    private CSVProcessor csvProcessor;
+    //private CSVProcessor csvProcessor;
+    private Processor processor;
     private Schneidplan schneidplan;
 
     public static void main(String[] args) {
@@ -68,7 +71,7 @@ public class SchneidplanGUI extends Application {
 
     private void setUpBusinessLogic() {
         parser = new Parser();
-        csvProcessor = new CSVProcessor();
+        processor = new XLXSProcessor();
     }
 
     private void obtainUiElements() {
@@ -91,7 +94,8 @@ public class SchneidplanGUI extends Application {
 
     private void convertAction() {
         schneidplan = parser.parseSchneidplan(locationOfHTML.getText());
-        csvPreview.setText(csvProcessor.writeToString(schneidplan));
+        CSVProcessor proc = new CSVProcessor();
+        csvPreview.setText(proc.writeToString(schneidplan));
     }
 
     private void showError(String message) {
@@ -103,7 +107,7 @@ public class SchneidplanGUI extends Application {
         if (schneidplan != null) {
             String path = openFileChooser("CSV", "*.csv", FileActionType.SAVE);
             locationOfCSV.setText(path);
-            csvProcessor.writeToFile(schneidplan, path);
+            processor.processAndWrite(schneidplan, path);
         }else {
             showError("Es muss zuerst ein Schneidplan geladen werden!");
         }
