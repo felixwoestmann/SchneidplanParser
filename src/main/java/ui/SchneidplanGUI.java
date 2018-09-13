@@ -110,7 +110,7 @@ public class SchneidplanGUI extends Application {
     }
 
     private void chooseHTMLFileAction() {
-        String path = openFileChooser("HTML", "*.htm", FileActionType.OPEN);
+        String path = openFileChooser("HTML", "*.htm*", FileActionType.OPEN);
         if (path != null) {
             locationOfHTML.setText(path);
 

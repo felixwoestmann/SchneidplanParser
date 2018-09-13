@@ -9,7 +9,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 public class CSVProcessor {
-    private final String SEPERATOR = ",";
+    private final String SEPERATOR = ";";
 
     public String writeToString(Schneidplan schneidplan) {
         StringWriter writer = new StringWriter();
@@ -44,6 +44,6 @@ public class CSVProcessor {
     }
 
     private void appendLine(StringBuilder sb, String leftcolumn, String rightcolumn) {
-        sb.append(leftcolumn).append(SEPERATOR).append(rightcolumn).append("\n");
+        sb.append(String.format("%s%s%s%n", leftcolumn, SEPERATOR, rightcolumn));
     }
 }
