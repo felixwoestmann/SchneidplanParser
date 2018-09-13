@@ -7,8 +7,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.nio.file.Path;
 
-public class CSVProcessor {
+public class CSVProcessor implements Processor {
     private final String SEPERATOR = ";";
 
     public String writeToString(Schneidplan schneidplan) {
@@ -45,5 +46,10 @@ public class CSVProcessor {
 
     private void appendLine(StringBuilder sb, String leftcolumn, String rightcolumn) {
         sb.append(String.format("%s%s%s%n", leftcolumn, SEPERATOR, rightcolumn));
+    }
+
+    @Override
+    public void processAndWrite(Schneidplan schneidplan, Path path) {
+        writeToFile(schneidplan, path.toString());
     }
 }
