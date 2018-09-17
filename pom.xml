@@ -16,6 +16,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>2.4</version>
                 <configuration>
+                    <finalName>schneidplan.jar</finalName>
                     <archive>
                         <manifest>
                             <mainClass>ui.SchneidplanGUI</mainClass>
