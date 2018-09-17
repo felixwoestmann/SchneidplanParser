@@ -3,5 +3,5 @@ jdk: oraclejdk8
 deploy:
   provider: releases
   api_key: "ce29751bc64af99a1d6766bc514365ea9fec2f31"
-  file: "SchneidplanParser-1.0-SNAPSHOT.jar"
+  file: "target/schneidplan.jar"
   skip_cleanup: true
