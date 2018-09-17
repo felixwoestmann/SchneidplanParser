@@ -29,12 +29,12 @@ public class SchneidplanGUI extends Application {
     private WebEngine htmlPreview;
     //
     private Button saveCSV;
+    private Button savexlSX;
     private TextField locationOfCSV;
     private TextArea csvPreview;
     //
     private Parser parser;
     //private CSVProcessor csvProcessor;
-    private Processor processor;
     private Schneidplan schneidplan;
 
     public static void main(String[] args) {
@@ -71,7 +71,7 @@ public class SchneidplanGUI extends Application {
 
     private void setUpBusinessLogic() {
         parser = new Parser();
-        processor = new XLXSProcessor();
+
     }
 
     private void obtainUiElements() {
@@ -80,6 +80,7 @@ public class SchneidplanGUI extends Application {
         htmlPreview = ((WebView) stage.getScene().lookup("#webview")).getEngine();
         //bottom pane
         saveCSV = (Button) stage.getScene().lookup("#savecsv");
+        savexlSX = (Button) stage.getScene().lookup("#savexlsx");
         locationOfCSV = (TextField) stage.getScene().lookup("#csvpath");
         csvPreview = (TextArea) stage.getScene().lookup("#csvpreview");
     }
@@ -88,8 +89,9 @@ public class SchneidplanGUI extends Application {
 
         //let the user choose a file and set the path into the text field and display it as preview and convert it in bacground
         chooseHTMLFile.setOnAction(actionEvent -> chooseHTMLFileAction());
-        //let the user choose the location oh where to write the file
-        saveCSV.setOnAction(actionEvent -> saveCSVAction());
+        //let the user choose the location on where to write the file
+        savexlSX.setOnAction(event -> saveAction(new XLXSProcessor()));
+        saveCSV.setOnAction(actionEvent -> saveAction(new CSVProcessor()));
     }
 
     private void convertAction() {
@@ -103,13 +105,12 @@ public class SchneidplanGUI extends Application {
         alert.show();
     }
 
-    private void saveCSVAction() {
+
+    private void saveAction(Processor processor) {
         if (schneidplan != null) {
             String path = openFileChooser(processor.getFileExtensionName(), processor.getFileExtension(), FileActionType.SAVE);
             locationOfCSV.setText(path);
             processor.processAndWrite(schneidplan, path);
-        }else {
-            showError("Es muss zuerst ein Schneidplan geladen werden!");
         }
     }
 
