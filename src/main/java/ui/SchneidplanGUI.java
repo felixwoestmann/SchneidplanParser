@@ -105,7 +105,7 @@ public class SchneidplanGUI extends Application {
 
     private void saveCSVAction() {
         if (schneidplan != null) {
-            String path = openFileChooser("CSV", "*.csv", FileActionType.SAVE);
+            String path = openFileChooser(processor.getFileExtensionName(), processor.getFileExtension(), FileActionType.SAVE);
             locationOfCSV.setText(path);
             processor.processAndWrite(schneidplan, path);
         }else {

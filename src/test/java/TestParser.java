@@ -6,6 +6,7 @@ import processing.Parser;
 import java.util.ArrayList;
 
 import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
 public class TestParser {
 
@@ -40,7 +41,7 @@ public class TestParser {
         Parser parser = new Parser();
         Schneidplan schneidplan = parser.parseSchneidplan("Reference/einrichteplan_1.htm");
         ArrayList<Einzelteil> einzelteile = schneidplan.getEinzelteile();
-        checkFilledEinzelteil(einzelteile);
+        checkFilledEinzelteil(einzelteile, 3);
     }
 
     @Test
@@ -48,7 +49,7 @@ public class TestParser {
         Parser parser = new Parser();
         Schneidplan schneidplan = parser.parseSchneidplan("Reference/einrichteplan_2.htm");
         ArrayList<Einzelteil> einzelteile = schneidplan.getEinzelteile();
-        checkFilledEinzelteil(einzelteile);
+        checkFilledEinzelteil(einzelteile, 18);
     }
 
     /**
@@ -56,7 +57,9 @@ public class TestParser {
      *
      * @param einzelteile
      */
-    private void checkFilledEinzelteil(ArrayList<Einzelteil> einzelteile) {
+    private void checkFilledEinzelteil(ArrayList<Einzelteil> einzelteile, int count) {
+
+        assertTrue(count == einzelteile.size());
         for (Einzelteil teil : einzelteile) {
             assertNotNull(teil.getAbmessungen());
             assertNotNull(teil.getAnazhl());

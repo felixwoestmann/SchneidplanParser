@@ -31,10 +31,14 @@ public class Parser {
         ArrayList<Element> subtable = new ArrayList<>();
         Elements tablerows = einzelteile.select("tr");
         tablerows.remove(0);
-        for (Element tablerow : tablerows) {
+        for (int i = 0; i < tablerows.size(); i++) {
+            Element tablerow = tablerows.get(i);
+            Elements cells = tablerow.select("td");
+
             //does a new table of einzelteile start ?
-            //becuas every td element contains a font element the size is effectivly doubled
-            if (tablerow.childNodeSize() == (3 * 2)) {
+            //discrimination between einzeilteile is based on the fact that the first row of a einzelteil has 3 cells every other just two
+            // when the last element out of the tablerows is processed the table is added to the schneidplan, too
+            if (cells.size() == (3) || i == tablerows.size() - 1) {
                 if (!subtable.isEmpty()) {
                     //new table, but list is filled? Parse list and empty list
                     einzelteilList.add(parseEinzelteil(subtable));
@@ -56,7 +60,10 @@ public class Parser {
      */
     private Einzelteil parseEinzelteil(ArrayList<Element> tablerows) {
         Einzelteil einzelteil = new Einzelteil();
-        tablerows.forEach(element -> processTableRow(einzelteil, element));
+        for (Element row : tablerows) {
+            processTableRow(einzelteil, row);
+        }
+
         return einzelteil;
     }
 

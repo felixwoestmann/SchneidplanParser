@@ -55,7 +55,15 @@ public class Schneidplan extends Parsable {
         row[1] = "";
         list.add(row);
         //add einzelteile
-        einzelteile.forEach(einzelteil -> list.addAll(einzelteil.toCSV()));
+        //counter for which einzelteil
+        int counter = 1;
+        for (Einzelteil einzelteil : einzelteile) {
+            String[] einzelteilprefixrow = new String[2];
+            einzelteilprefixrow[0] = "Einzelteil:";
+            einzelteilprefixrow[1] = "" + counter++;
+            list.add(einzelteilprefixrow);
+            list.addAll(einzelteil.getCSVFromMap());
+        }
         return list;
     }
 
