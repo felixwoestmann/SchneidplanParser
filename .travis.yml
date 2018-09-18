@@ -2,6 +2,6 @@ language: java
 jdk: oraclejdk8
 deploy:
   provider: releases
-  api_key: "ce29751bc64af99a1d6766bc514365ea9fec2f31"
+  api_key: "eb32465c9bee4751c3189c2d78c8b79bd04865ed"
   file: "target/schneidplan.jar"
   skip_cleanup: true
