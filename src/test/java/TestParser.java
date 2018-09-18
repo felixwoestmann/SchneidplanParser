@@ -62,7 +62,7 @@ public class TestParser {
         assertTrue(count == einzelteile.size());
         for (Einzelteil teil : einzelteile) {
             assertNotNull(teil.getAbmessungen());
-            assertNotNull(teil.getAnazhl());
+            assertNotNull(teil.getAnzahl());
             assertNotNull(teil.getAnzahl_einstechpunkte());
             assertNotNull(teil.getBearbeitungszeit());
             assertNotNull(teil.getEinstechzeit());

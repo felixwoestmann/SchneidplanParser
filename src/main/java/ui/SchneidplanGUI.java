@@ -50,7 +50,7 @@ public class SchneidplanGUI extends Application {
             e.printStackTrace();
         }
         obtainUiElements();
-        setUpBusinessLogic();
+        parser = new Parser();
         setUpFunctionality();
 
     }
@@ -69,10 +69,7 @@ public class SchneidplanGUI extends Application {
     }
 
 
-    private void setUpBusinessLogic() {
-        parser = new Parser();
 
-    }
 
     private void obtainUiElements() {
         chooseHTMLFile = (Button) stage.getScene().lookup("#choosehtml");

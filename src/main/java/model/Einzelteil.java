@@ -10,15 +10,15 @@ import java.util.List;
 public class Einzelteil extends Parsable {
 
 
-    String anazhl;
-    String abmessungen;
-    String flaeche;
-    String bearbeitungszeit;
-    String schneidlaenge;
-    String gewicht;
-    String anzahl_einstechpunkte;
-    String einstechzeit;
-    String geofilename;
+    private String anzahl;
+    private String abmessungen;
+    private String flaeche;
+    private String bearbeitungszeit;
+    private String schneidlaenge;
+    private String gewicht;
+    private String anzahl_einstechpunkte;
+    private String einstechzeit;
+    private String geofilename;
 
 
     public Einzelteil() {
@@ -31,22 +31,23 @@ public class Einzelteil extends Parsable {
     }
 
     /**
-     * Inits the map with trigger phrases an decides wich method to call, according to those
+     * Inits the map with trigger phrases and corresponding fields.
      *
-     * @throws NoSuchMethodException
+     * @throws NoSuchFieldException | if no field with this name is found
      */
     void initMap() throws NoSuchFieldException {
-        Class thisclass = this.getClass();
-        triggerSetFieldMap.put("ANZAHL:", thisclass.getDeclaredField("anazhl"));
-        triggerSetFieldMap.put("ABMESSUNGEN:", thisclass.getDeclaredField("abmessungen"));
-        triggerSetFieldMap.put("FLAECHE:", thisclass.getDeclaredField("flaeche"));
-        triggerSetFieldMap.put("BEARBEITUNGSZEIT:", thisclass.getDeclaredField("bearbeitungszeit"));
-        triggerSetFieldMap.put("SCHNEIDLAENGE:", thisclass.getDeclaredField("schneidlaenge"));
-        triggerSetFieldMap.put("GEWICHT:", thisclass.getDeclaredField("gewicht"));
-        triggerSetFieldMap.put("ANZAHL EINSTECHPUNKTE:", thisclass.getDeclaredField("anzahl_einstechpunkte"));
-        triggerSetFieldMap.put("EINSTECHZEIT", thisclass.getDeclaredField("einstechzeit"));
-        triggerSetFieldMap.put("GEOFILENAME:", thisclass.getDeclaredField("geofilename"));
+        Class c = this.getClass();
+        triggerSetFieldMap.put("ANZAHL:", c.getDeclaredField("anzahl"));
+        triggerSetFieldMap.put("ABMESSUNGEN:", c.getDeclaredField("abmessungen"));
+        triggerSetFieldMap.put("FLAECHE:", c.getDeclaredField("flaeche"));
+        triggerSetFieldMap.put("BEARBEITUNGSZEIT:", c.getDeclaredField("bearbeitungszeit"));
+        triggerSetFieldMap.put("SCHNEIDLAENGE:", c.getDeclaredField("schneidlaenge"));
+        triggerSetFieldMap.put("GEWICHT:", c.getDeclaredField("gewicht"));
+        triggerSetFieldMap.put("ANZAHL EINSTECHPUNKTE:", c.getDeclaredField("anzahl_einstechpunkte"));
+        triggerSetFieldMap.put("EINSTECHZEIT", c.getDeclaredField("einstechzeit"));
+        triggerSetFieldMap.put("GEOFILENAME:", c.getDeclaredField("geofilename"));
     }
+
 
     @Override
     List<String[]> toCSV() {
@@ -54,8 +55,8 @@ public class Einzelteil extends Parsable {
     }
 
 
-    public String getAnazhl() {
-        return anazhl;
+    public String getAnzahl() {
+        return anzahl;
     }
 
     public String getAbmessungen() {
