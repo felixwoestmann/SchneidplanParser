@@ -2,6 +2,6 @@ language: java
 jdk: oraclejdk8
 deploy:
   provider: releases
-  api_key: "eb32465c9bee4751c3189c2d78c8b79bd04865ed"
+  api_key: $github_token
   file: "target/schneidplan.jar"
   skip_cleanup: true
