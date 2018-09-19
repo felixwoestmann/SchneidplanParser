@@ -8,6 +8,7 @@ import java.util.List;
  * Ein model.Schneidplan definiert verschiedene Informationen bestehnd aus einem Kopf und mehreren Einzelteilen
  */
 
+@SuppressWarnings("WeakerAccess")
 public class Schneidplan extends Parsable {
     //Informationen aus dem Kopf
     String programmname;

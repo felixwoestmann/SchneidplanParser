@@ -7,18 +7,19 @@ import java.util.List;
 /**
  * Klasse beschreibt ein model.Einzelteil eines Schneidplans
  */
+@SuppressWarnings("WeakerAccess")
 public class Einzelteil extends Parsable {
 
 
-    private String anzahl;
-    private String abmessungen;
-    private String flaeche;
-    private String bearbeitungszeit;
-    private String schneidlaenge;
-    private String gewicht;
-    private String anzahl_einstechpunkte;
-    private String einstechzeit;
-    private String geofilename;
+     String anzahl;
+     String abmessungen;
+     String flaeche;
+     String bearbeitungszeit;
+     String schneidlaenge;
+     String gewicht;
+     String anzahl_einstechpunkte;
+     String einstechzeit;
+     String geofilename;
 
 
     public Einzelteil() {
