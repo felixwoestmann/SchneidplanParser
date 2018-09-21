@@ -68,7 +68,6 @@ public class SchneidplanGUI extends Application {
 
    private void close(WindowEvent event){
        if (logWindow != null) {
-
            logWindow.close();
        }
    }
@@ -84,6 +83,7 @@ public class SchneidplanGUI extends Application {
         Scene scene = new Scene(rootLayout);
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("Schneidplan Parser");
     }
 
 

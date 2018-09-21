@@ -35,6 +35,7 @@ public class LogWindow extends Application implements LogObserver {
         logspace = (TextArea) scene.lookup("#logspace");
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("Log Window");
 
     }
 
