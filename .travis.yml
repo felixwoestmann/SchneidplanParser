@@ -5,5 +5,3 @@ deploy:
   api_key: $github_token
   file: "target/schneidplan.jar"
   skip_cleanup: true
-  on:
-    tags: true 
