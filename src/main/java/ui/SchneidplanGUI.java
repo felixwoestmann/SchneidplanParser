@@ -1,6 +1,10 @@
 package ui;
 
+import debug.CustomLogger;
 import javafx.application.Application;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -24,6 +28,9 @@ public class SchneidplanGUI extends Application {
 
     private Stage stage;
     //
+    private MenuItem about;
+    private MenuItem showLog;
+    //
     private Button chooseHTMLFile;
     private TextField locationOfHTML;
     private WebEngine htmlPreview;
@@ -36,6 +43,7 @@ public class SchneidplanGUI extends Application {
     private Parser parser;
     //private CSVProcessor csvProcessor;
     private Schneidplan schneidplan;
+    private LogWindow logWindow=null;
 
     public static void main(String[] args) {
         launch(args);
@@ -69,17 +77,22 @@ public class SchneidplanGUI extends Application {
     }
 
 
-
-
     private void obtainUiElements() {
-        chooseHTMLFile = (Button) stage.getScene().lookup("#choosehtml");
-        locationOfHTML = (TextField) stage.getScene().lookup("#htmlpath");
-        htmlPreview = ((WebView) stage.getScene().lookup("#webview")).getEngine();
+        Scene sc=stage.getScene();
+        //menu
+        MenuBar bar=(MenuBar) sc.lookup("#bar");
+        ObservableList<MenuItem> menuItems=bar.getMenus().get(0).getItems();
+        about=menuItems.get(0);
+        showLog=menuItems.get(1);
+        //top pane
+        chooseHTMLFile = (Button) sc.lookup("#choosehtml");
+        locationOfHTML = (TextField) sc.lookup("#htmlpath");
+        htmlPreview = ((WebView) sc.lookup("#webview")).getEngine();
         //bottom pane
-        saveCSV = (Button) stage.getScene().lookup("#savecsv");
-        savexlSX = (Button) stage.getScene().lookup("#savexlsx");
-        locationOfCSV = (TextField) stage.getScene().lookup("#csvpath");
-        csvPreview = (TextArea) stage.getScene().lookup("#csvpreview");
+        saveCSV = (Button) sc.lookup("#savecsv");
+        savexlSX = (Button) sc.lookup("#savexlsx");
+        locationOfCSV = (TextField) sc.lookup("#csvpath");
+        csvPreview = (TextArea) sc.lookup("#csvpreview");
     }
 
     private void setUpFunctionality() {
@@ -89,6 +102,18 @@ public class SchneidplanGUI extends Application {
         //let the user choose the location on where to write the file
         savexlSX.setOnAction(event -> saveAction(new XLXSProcessor()));
         saveCSV.setOnAction(actionEvent -> saveAction(new CSVProcessor()));
+        showLog.setOnAction(actionEvent -> openLogWindow());
+    }
+
+    private void openLogWindow() {
+        if(logWindow==null){
+            logWindow=new LogWindow();
+            try {
+                logWindow.start(new Stage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void convertAction() {
