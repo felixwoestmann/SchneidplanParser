@@ -3,7 +3,7 @@ jdk: oraclejdk8
 deploy:
   provider: releases
   api_key: $github_token
-  file: "target/schneidplan.jar"
+  file: "target/schneidplanparser.jar"
   skip_cleanup: true
   on:
     tags: true
