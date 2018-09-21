@@ -3,6 +3,8 @@ package ui;
 import debug.CustomLogger;
 import debug.LogObserver;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
@@ -21,7 +23,6 @@ public class LogWindow extends Application implements LogObserver {
         this.stage = stage;
         setUpUi();
         CustomLogger.getInstance().addObserver(this);
-
     }
 
     private void setUpUi() throws IOException {
@@ -40,7 +41,13 @@ public class LogWindow extends Application implements LogObserver {
     @Override
     public void logForUI(String message) {
         if (logspace != null) {
-            logspace.appendText(message);
+            logspace.appendText(String.format("%s %n", message));
         }
+    }
+
+    void close() {
+        Platform.exit();
+        stage.close();
+
     }
 }

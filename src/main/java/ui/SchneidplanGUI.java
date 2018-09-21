@@ -2,7 +2,9 @@ package ui;
 
 import debug.CustomLogger;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -11,6 +13,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import model.Schneidplan;
 import processing.CSVProcessor;
 import processing.Parser;
@@ -59,8 +62,16 @@ public class SchneidplanGUI extends Application {
         obtainUiElements();
         parser = new Parser();
         setUpFunctionality();
-
+        //set action which should be performed if windows is closed
+        stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::close);
     }
+
+   private void close(WindowEvent event){
+       if (logWindow != null) {
+
+           logWindow.close();
+       }
+   }
 
 
     private void setUpUi() throws IOException {
@@ -105,6 +116,8 @@ public class SchneidplanGUI extends Application {
     }
 
     private void openLogWindow() {
+        CustomLogger.getInstance().log("Opened log window");
+
         if (logWindow == null) {
             logWindow = new LogWindow();
             try {
@@ -120,6 +133,8 @@ public class SchneidplanGUI extends Application {
         schneidplan = parser.parseSchneidplan(locationOfHTML.getText());
         CSVProcessor proc = new CSVProcessor();
         csvPreview.setText(proc.writeToString(schneidplan));
+        CustomLogger.getInstance().log(String.format("Schneidplan %s konvertiert",locationOfHTML.getText()));
+
     }
 
     private void showError(String message) {
@@ -133,6 +148,11 @@ public class SchneidplanGUI extends Application {
             String path = openFileChooser(processor.getFileExtensionName(), processor.getFileExtension(), FileActionType.SAVE);
             locationOfCSV.setText(path);
             processor.processAndWrite(schneidplan, path);
+            CustomLogger.getInstance().log(String.format("Schneidplan nach %s geschrieben",path));
+
+        }else{
+            CustomLogger.getInstance().log("Kein Schneidplan vorhanden. Input HTML wahrscheinlich fehlerhaft");
+
         }
     }
 
@@ -149,11 +169,15 @@ public class SchneidplanGUI extends Application {
                 CustomLogger.getInstance().log(e);
 
             }
+            CustomLogger.getInstance().log(String.format("HTML File aus %s geladen",locationOfHTML.getText()));
+
             convertAction();
         }
 
 
     }
+
+
 
     private String openFileChooser(String showType, String filetype, FileActionType type) {
         FileChooser fileChooser = new FileChooser();
@@ -170,5 +194,6 @@ public class SchneidplanGUI extends Application {
         }
         return null;
     }
+
 
 }
