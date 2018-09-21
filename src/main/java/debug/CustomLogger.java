@@ -1,5 +1,7 @@
 package debug;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 
 public class CustomLogger {
@@ -35,8 +37,20 @@ public class CustomLogger {
     public void log(String message) {
         for (LogObserver observer : observers) {
             observer.logForUI(message);
-            System.out.println(message);
         }
+        System.out.println(message);
+    }
+
+    public void log(Exception e) {
+        StringWriter writer = new StringWriter();
+        PrintWriter pw = new PrintWriter(writer);
+        e.printStackTrace(pw);
+        log(writer.toString());
+    }
+
+    public void log(Exception e, String message) {
+        log(message);
+        log(e);
     }
 
 

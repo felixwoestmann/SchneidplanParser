@@ -1,5 +1,6 @@
 package processing;
 
+import debug.CustomLogger;
 import model.Schneidplan;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -63,7 +64,8 @@ public class XLXSProcessor implements Processor {
             // Closing the workbook
             workbook.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            CustomLogger.getInstance().log(e);
+
         }
     }
 

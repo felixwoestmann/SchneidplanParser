@@ -1,5 +1,7 @@
 package model;
 
+import debug.CustomLogger;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +30,8 @@ public class Schneidplan extends Parsable {
         try {
             initMap();
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+            CustomLogger.getInstance().log(e);
+
         }
     }
 

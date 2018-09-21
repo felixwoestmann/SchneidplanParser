@@ -1,6 +1,8 @@
 package model;
 
 
+import debug.CustomLogger;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -27,7 +29,8 @@ public class Einzelteil extends Parsable {
         try {
             initMap();
         } catch (NoSuchFieldException e) {
-            e.printStackTrace();
+            CustomLogger.getInstance().log(e);
+
         }
     }
 

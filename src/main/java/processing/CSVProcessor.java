@@ -1,6 +1,7 @@
 package processing;
 
 
+import debug.CustomLogger;
 import model.Schneidplan;
 
 import java.io.FileWriter;
@@ -22,8 +23,7 @@ public class CSVProcessor implements Processor {
         try {
             writer = new FileWriter(path);
         } catch (IOException e) {
-            System.out.println("Etwas lief schief!");
-            e.printStackTrace();
+            CustomLogger.getInstance().log(e, "Etwas lief schief!");
         }
         write(schneidplan, writer);
     }
@@ -38,7 +38,8 @@ public class CSVProcessor implements Processor {
             writer.write(sb.toString());
             writer.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            CustomLogger.getInstance().log(e);
+
         }
 
     }

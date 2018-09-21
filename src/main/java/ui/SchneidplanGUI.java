@@ -1,5 +1,6 @@
 package ui;
 
+import debug.CustomLogger;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -52,7 +53,8 @@ public class SchneidplanGUI extends Application {
         try {
             setUpUi();
         } catch (IOException e) {
-            e.printStackTrace();
+            CustomLogger.getInstance().log(e);
+
         }
         obtainUiElements();
         parser = new Parser();
@@ -108,7 +110,8 @@ public class SchneidplanGUI extends Application {
             try {
                 logWindow.start(new Stage());
             } catch (Exception e) {
-                e.printStackTrace();
+                CustomLogger.getInstance().log(e);
+
             }
         }
     }
@@ -143,7 +146,8 @@ public class SchneidplanGUI extends Application {
             try {
                 htmlPreview.load(file.toURI().toURL().toString());
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                CustomLogger.getInstance().log(e);
+
             }
             convertAction();
         }

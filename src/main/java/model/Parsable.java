@@ -1,5 +1,7 @@
 package model;
 
+import debug.CustomLogger;
+
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,8 +36,7 @@ public abstract class Parsable {
             try {
                 field.set(this, content);
             } catch (IllegalAccessException e) {
-                System.out.println("Irgendwas lief hier sehr schief!");
-                e.printStackTrace();
+                CustomLogger.getInstance().log(e,"Irgendwas lief hier sehr schief!");
             }
         }
     }
@@ -55,7 +56,7 @@ public abstract class Parsable {
             try {
                 row[1] = String.valueOf(triggerSetFieldMap.get(s).get(this));
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                CustomLogger.getInstance().log(e);
             }
             list.add(row);
         });

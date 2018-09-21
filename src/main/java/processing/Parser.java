@@ -1,5 +1,6 @@
 package processing;
 
+import debug.CustomLogger;
 import model.Einzelteil;
 import model.Parsable;
 import model.Schneidplan;
@@ -118,8 +119,7 @@ public class Parser {
         try {
             complete_html = Jsoup.parse(input, ENCODING);
         } catch (IOException e) {
-            System.out.println("Datei kann nicht geladen werden!");
-            e.printStackTrace();
+            CustomLogger.getInstance().log(e,"Datei kann nicht geladen werden!");
             return null;
         }
 
