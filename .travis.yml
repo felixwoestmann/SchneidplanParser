@@ -5,8 +5,7 @@ deploy:
   provider: releases
   api_key: $github_token
   file:
-  - "target/schneidplanparser-one-jar.jar"
-  - "target/schneidplanparser.jar"
+  - "target/schneidplanparser.one-jar.jar"
   skip_cleanup: true
   on:
     tags: true
