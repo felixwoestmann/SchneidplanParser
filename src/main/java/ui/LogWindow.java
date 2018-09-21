@@ -30,7 +30,7 @@ public class LogWindow extends Application implements LogObserver {
         URL url = this.getClass().getResource("logwindow.fxml");
         loader.setLocation(url);
         FlowPane root = loader.load();
-        //    stage.setResizable(false);
+        stage.setResizable(false);
         Scene scene = new Scene(root);
         logspace = (TextArea) scene.lookup("#logspace");
         stage.setScene(scene);
@@ -49,6 +49,5 @@ public class LogWindow extends Application implements LogObserver {
     void close() {
         Platform.exit();
         stage.close();
-
     }
 }
