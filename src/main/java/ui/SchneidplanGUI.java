@@ -1,10 +1,7 @@
 package ui;
 
-import debug.CustomLogger;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -43,7 +40,7 @@ public class SchneidplanGUI extends Application {
     private Parser parser;
     //private CSVProcessor csvProcessor;
     private Schneidplan schneidplan;
-    private LogWindow logWindow=null;
+    private LogWindow logWindow = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -78,12 +75,12 @@ public class SchneidplanGUI extends Application {
 
 
     private void obtainUiElements() {
-        Scene sc=stage.getScene();
+        Scene sc = stage.getScene();
         //menu
-        MenuBar bar=(MenuBar) sc.lookup("#bar");
-        ObservableList<MenuItem> menuItems=bar.getMenus().get(0).getItems();
-        about=menuItems.get(0);
-        showLog=menuItems.get(1);
+        MenuBar bar = (MenuBar) sc.lookup("#bar");
+        ObservableList<MenuItem> menuItems = bar.getMenus().get(0).getItems();
+        about = menuItems.get(0);
+        showLog = menuItems.get(1);
         //top pane
         chooseHTMLFile = (Button) sc.lookup("#choosehtml");
         locationOfHTML = (TextField) sc.lookup("#htmlpath");
@@ -106,8 +103,8 @@ public class SchneidplanGUI extends Application {
     }
 
     private void openLogWindow() {
-        if(logWindow==null){
-            logWindow=new LogWindow();
+        if (logWindow == null) {
+            logWindow = new LogWindow();
             try {
                 logWindow.start(new Stage());
             } catch (Exception e) {

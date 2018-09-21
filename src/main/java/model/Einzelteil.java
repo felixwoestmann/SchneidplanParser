@@ -11,15 +11,15 @@ import java.util.List;
 public class Einzelteil extends Parsable {
 
 
-     String anzahl;
-     String abmessungen;
-     String flaeche;
-     String bearbeitungszeit;
-     String schneidlaenge;
-     String gewicht;
-     String anzahl_einstechpunkte;
-     String einstechzeit;
-     String geofilename;
+    String anzahl;
+    String abmessungen;
+    String flaeche;
+    String bearbeitungszeit;
+    String schneidlaenge;
+    String gewicht;
+    String anzahl_einstechpunkte;
+    String einstechzeit;
+    String geofilename;
 
 
     public Einzelteil() {

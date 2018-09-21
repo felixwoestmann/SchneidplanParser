@@ -5,7 +5,6 @@ import debug.LogObserver;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.Stage;
@@ -16,10 +15,11 @@ import java.net.URL;
 public class LogWindow extends Application implements LogObserver {
     private Stage stage;
     private TextArea logspace;
+
     @Override
     public void start(Stage stage) throws Exception {
-        this.stage=stage;
-       setUpUi();
+        this.stage = stage;
+        setUpUi();
         CustomLogger.getInstance().addObserver(this);
 
     }
@@ -28,10 +28,10 @@ public class LogWindow extends Application implements LogObserver {
         FXMLLoader loader = new FXMLLoader();
         URL url = this.getClass().getResource("logwindow.fxml");
         loader.setLocation(url);
-        FlowPane root=loader.load();
-    //    stage.setResizable(false);
+        FlowPane root = loader.load();
+        //    stage.setResizable(false);
         Scene scene = new Scene(root);
-        logspace= (TextArea) scene.lookup("#logspace");
+        logspace = (TextArea) scene.lookup("#logspace");
         stage.setScene(scene);
         stage.show();
 

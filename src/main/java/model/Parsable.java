@@ -44,6 +44,7 @@ public abstract class Parsable {
      * Returns a List of String Arrays with the size two.
      * The String arrays are containing the trigger phrase and the value.
      * So to speak: The method serializes the clas as a CSV file.
+     *
      * @return List of String Arrays
      */
     List<String[]> getCSVFromMap() {
