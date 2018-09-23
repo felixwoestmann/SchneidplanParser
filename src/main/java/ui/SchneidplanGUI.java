@@ -66,11 +66,11 @@ public class SchneidplanGUI extends Application {
         stage.getScene().getWindow().addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::close);
     }
 
-   private void close(WindowEvent event){
-       if (logWindow != null) {
-           logWindow.close();
-       }
-   }
+    private void close(WindowEvent event) {
+        if (logWindow != null) {
+            logWindow.close();
+        }
+    }
 
 
     private void setUpUi() throws IOException {
@@ -109,7 +109,9 @@ public class SchneidplanGUI extends Application {
     private void setUpFunctionality() {
 
         //let the user choose a file and set the path into the text field and display it as preview and convert it in bacground
-        chooseHTMLFile.setOnAction(actionEvent -> chooseHTMLFileAction());
+        chooseHTMLFile.setOnAction(event -> {
+            chooseHTMLFileAction();
+        });
         //let the user choose the location on where to write the file
         savexlSX.setOnAction(event -> saveAction(new XLXSProcessor()));
         saveCSV.setOnAction(actionEvent -> saveAction(new CSVProcessor()));
@@ -134,11 +136,9 @@ public class SchneidplanGUI extends Application {
         schneidplan = parser.parseSchneidplan(locationOfHTML.getText());
         CSVProcessor proc = new CSVProcessor();
         csvPreview.setText(proc.writeToString(schneidplan));
-        CustomLogger.getInstance().log(String.format("Schneidplan %s konvertiert",locationOfHTML.getText()));
+        CustomLogger.getInstance().log(String.format("Schneidplan %s konvertiert", locationOfHTML.getText()));
 
     }
-
-
 
 
     private void saveAction(Processor processor) {
@@ -147,11 +147,11 @@ public class SchneidplanGUI extends Application {
             String path = openFileChooser(processor.getFileExtensionName(), processor.getFileExtension(), FileActionType.SAVE);
             locationOfCSV.setText(path);
             progressBar.setProgress(0.2);
-            processor.processAndWrite(schneidplan, path);
+            Thread t = new Thread(() -> processor.processAndWrite(schneidplan, path));
             progressBar.setProgress(100);
-            CustomLogger.getInstance().log(String.format("Schneidplan nach %s geschrieben",path));
+            CustomLogger.getInstance().log(String.format("Schneidplan nach %s geschrieben", path));
 
-        }else{
+        } else {
             CustomLogger.getInstance().log("Kein Schneidplan vorhanden. Input HTML wahrscheinlich fehlerhaft");
 
         }
@@ -171,14 +171,13 @@ public class SchneidplanGUI extends Application {
                 CustomLogger.getInstance().log(e);
 
             }
-            CustomLogger.getInstance().log(String.format("HTML File aus %s geladen",locationOfHTML.getText()));
+            CustomLogger.getInstance().log(String.format("HTML File aus %s geladen", locationOfHTML.getText()));
 
             convertAction();
         }
 
 
     }
-
 
 
     private String openFileChooser(String showType, String filetype, FileActionType type) {
