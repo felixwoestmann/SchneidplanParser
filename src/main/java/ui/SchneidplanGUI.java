@@ -2,13 +2,11 @@ package ui;
 
 import debug.CustomLogger;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
@@ -40,6 +38,8 @@ public class SchneidplanGUI extends Application {
     private Button savexlSX;
     private TextField locationOfCSV;
     private TextArea csvPreview;
+    //
+    private ProgressBar progressBar;
     //
     private Parser parser;
     //private CSVProcessor csvProcessor;
@@ -78,7 +78,7 @@ public class SchneidplanGUI extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL url = this.getClass().getResource("ui.fxml");
         loader.setLocation(url);
-        SplitPane rootLayout = loader.load();
+        GridPane rootLayout = loader.load();
         stage.setResizable(false);
         Scene scene = new Scene(rootLayout);
         stage.setScene(scene);
@@ -103,6 +103,7 @@ public class SchneidplanGUI extends Application {
         savexlSX = (Button) sc.lookup("#savexlsx");
         locationOfCSV = (TextField) sc.lookup("#csvpath");
         csvPreview = (TextArea) sc.lookup("#csvpreview");
+        progressBar = (ProgressBar) sc.lookup("#progress");
     }
 
     private void setUpFunctionality() {
@@ -137,23 +138,24 @@ public class SchneidplanGUI extends Application {
 
     }
 
-    private void showError(String message) {
-        Alert alert = new Alert(AlertType.ERROR, "Der Schneidplan muss zuerst konvertiert werden!");
-        alert.show();
-    }
+
 
 
     private void saveAction(Processor processor) {
         if (schneidplan != null) {
+            progressBar.setProgress(0);
             String path = openFileChooser(processor.getFileExtensionName(), processor.getFileExtension(), FileActionType.SAVE);
             locationOfCSV.setText(path);
+            progressBar.setProgress(0.2);
             processor.processAndWrite(schneidplan, path);
+            progressBar.setProgress(100);
             CustomLogger.getInstance().log(String.format("Schneidplan nach %s geschrieben",path));
 
         }else{
             CustomLogger.getInstance().log("Kein Schneidplan vorhanden. Input HTML wahrscheinlich fehlerhaft");
 
         }
+        progressBar.setProgress(0);
     }
 
     private void chooseHTMLFileAction() {
