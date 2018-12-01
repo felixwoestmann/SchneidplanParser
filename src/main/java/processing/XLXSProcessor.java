@@ -8,7 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class XLXSProcessor implements Processor {
+public class XLXSProcessor extends AbstractXLXSProcessor {
     private final String[] COLUMNS = {"Beschreibung:", "Wert:"};
     private final String SHEETNAME = "Schneidplan";
 
@@ -69,13 +69,4 @@ public class XLXSProcessor implements Processor {
         }
     }
 
-    @Override
-    public String getFileExtension() {
-        return "*.xlsx";
-    }
-
-    @Override
-    public String getFileExtensionName() {
-        return "xlsx Datei";
-    }
 }
