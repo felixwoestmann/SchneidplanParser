@@ -120,8 +120,7 @@ public class SchneidplanGUI extends Application {
 
     private void openLogWindow() {
         CustomLogger.getInstance().log("Opened log window");
-
-        if (logWindow == null) {
+               
             logWindow = new LogWindow();
             try {
                 logWindow.start(new Stage());
@@ -129,7 +128,7 @@ public class SchneidplanGUI extends Application {
                 CustomLogger.getInstance().log(e);
 
             }
-        }
+
     }
 
     private void convertAction() {
