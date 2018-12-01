@@ -1,4 +1,6 @@
-package processing;
+package processing.xlxs;
+
+import processing.Processor;
 
 public abstract class AbstractXLXSProcessor implements Processor {
 

@@ -16,7 +16,7 @@ import model.Schneidplan;
 import processing.CSVProcessor;
 import processing.Parser;
 import processing.Processor;
-import processing.XLXSProcessor;
+import processing.xlxs.XLXSProcessor;
 
 import java.io.File;
 import java.io.IOException;
@@ -120,14 +120,14 @@ public class SchneidplanGUI extends Application {
 
     private void openLogWindow() {
         CustomLogger.getInstance().log("Opened log window");
-               
-            logWindow = new LogWindow();
-            try {
-                logWindow.start(new Stage());
-            } catch (Exception e) {
-                CustomLogger.getInstance().log(e);
 
-            }
+        logWindow = new LogWindow();
+        try {
+            logWindow.start(new Stage());
+        } catch (Exception e) {
+            CustomLogger.getInstance().log(e);
+
+        }
 
     }
 
