@@ -18,7 +18,7 @@
             <items>
                 <MenuBar fx:id="bar">
                     <menus>
-                        <Menu mnemonicParsing="false" text="Weiters...">
+                        <Menu mnemonicParsing="false" text="Weiteres...">
                             <items>
                                 <MenuItem fx:id="about" mnemonicParsing="false" text="Über"/>
                                 <MenuItem fx:id="showlog" mnemonicParsing="false" text="Zeige Log"/>

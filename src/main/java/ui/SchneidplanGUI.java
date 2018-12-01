@@ -121,7 +121,8 @@ public class SchneidplanGUI extends Application {
     private void openLogWindow() {
         CustomLogger.getInstance().log("Opened log window");
 
-        if (logWindow == null) {
+        //if (logWindow == null) {
+        if (true) {
             logWindow = new LogWindow();
             try {
                 logWindow.start(new Stage());
