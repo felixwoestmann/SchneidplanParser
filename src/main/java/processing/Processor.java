@@ -4,7 +4,7 @@ import model.Schneidplan;
 
 public interface Processor {
 
-    void processAndWrite(Schneidplan schneidplan, String path);
+    void processAndWrite(Schneidplan schneidplan, String path) throws Exception;
 
     String getFileExtension();
 

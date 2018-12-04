@@ -2,6 +2,8 @@ import model.Einzelteil;
 import model.Schneidplan;
 import org.junit.Test;
 import processing.Parser;
+import processing.Processor;
+import processing.xlxs.XLXSAppender;
 
 import java.util.ArrayList;
 
@@ -16,7 +18,6 @@ public class TestParser {
         Schneidplan schneidplan = parser.parseSchneidplan("Reference/einrichteplan_1.htm");
 
     }
-
 
     /**
      * Test if all fields of Schneidplan are filled.
@@ -93,5 +94,15 @@ public class TestParser {
 
     }
 
-
+    @Test
+    public void testAppender() {
+        Parser parser = new Parser();
+        Schneidplan schneidplan = parser.parseSchneidplan("Reference/einrichteplan_1.htm");
+        Processor appender=new XLXSAppender();
+        try {
+            appender.processAndWrite(schneidplan,"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

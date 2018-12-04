@@ -146,7 +146,13 @@ public class SchneidplanGUI extends Application {
             String path = openFileChooser(processor.getFileExtensionName(), processor.getFileExtension(), FileActionType.SAVE);
             locationOfCSV.setText(path);
             progressBar.setProgress(0.2);
-            Thread t = new Thread(() -> processor.processAndWrite(schneidplan, path));
+            Thread t = new Thread(() -> {
+                try {
+                    processor.processAndWrite(schneidplan, path);
+                } catch (Exception e) {
+                    //TODO
+                }
+            });
             progressBar.setProgress(100);
             CustomLogger.getInstance().log(String.format("Schneidplan nach %s geschrieben", path));
 
