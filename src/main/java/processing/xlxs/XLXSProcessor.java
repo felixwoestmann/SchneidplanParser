@@ -56,17 +56,7 @@ public class XLXSProcessor extends AbstractXLXSProcessor {
 
         // Write the output to a file
         FileOutputStream fileOut = null;
-        try {
-            fileOut = new FileOutputStream(path);
-            workbook.write(fileOut);
-            fileOut.close();
-
-            // Closing the workbook
-            workbook.close();
-        } catch (IOException e) {
-            CustomLogger.getInstance().log(e);
-
-        }
+        saveAndCloseWorkbook(path, workbook);
     }
 
 }

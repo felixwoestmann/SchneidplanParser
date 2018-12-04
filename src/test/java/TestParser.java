@@ -100,7 +100,7 @@ public class TestParser {
         Schneidplan schneidplan = parser.parseSchneidplan("Reference/einrichteplan_1.htm");
         Processor appender=new XLXSAppender();
         try {
-            appender.processAndWrite(schneidplan,"");
+            appender.processAndWrite(schneidplan,"C:\\Users\\Felix\\git\\Reference\\dev_schneidtable.xlsx");
         } catch (Exception e) {
             e.printStackTrace();
         }
