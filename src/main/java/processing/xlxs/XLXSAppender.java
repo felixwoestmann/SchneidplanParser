@@ -40,13 +40,13 @@ public class XLXSAppender extends AbstractXLXSProcessor {
         } catch (IOException e) {
             throw new Exception(String.format("Keine kombatible Datei in %s gefunden.", path));
         }
-
+        CustomLogger.getInstance().log("Loaded Workbook");
         //get the correct Excel Sheet, defined in a constant
         XSSFSheet sheet = searchCorrectSheet(workbook);
         if (sheet == null) {
             throw new Exception(String.format("Arbeitsblatt %s konnte nicht gefunden werden.", SHEET_TO_APPEND));
         }
-
+        CustomLogger.getInstance().log("Found correct sheet!");
         createRows(schneidplan, sheet);
 
         //close the workbook
@@ -75,5 +75,6 @@ public class XLXSAppender extends AbstractXLXSProcessor {
             cell = actualRow.createCell(2);
             cell.setCellValue(schneidplan.getGewicht());
         }
+        CustomLogger.getInstance().log("Created Rows");
     }
 }

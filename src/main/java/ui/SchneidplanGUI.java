@@ -3,24 +3,24 @@ package ui;
 import debug.CustomLogger;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import model.Schneidplan;
-import processing.CSVProcessor;
 import processing.Parser;
-import processing.Processor;
-import processing.xlxs.XLXSProcessor;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 public class SchneidplanGUI extends Application {
@@ -30,19 +30,11 @@ public class SchneidplanGUI extends Application {
     private MenuItem about;
     private MenuItem showLog;
     //
-    private Button chooseHTMLFile;
-    private TextField locationOfHTML;
-    private WebEngine htmlPreview;
-    //
-    private Button saveCSV;
-    private Button savexlSX;
-    private TextField locationOfCSV;
-    private TextArea csvPreview;
+    private ImageView imageview;
     //
     private ProgressBar progressBar;
     //
     private Parser parser;
-    //private CSVProcessor csvProcessor;
     private Schneidplan schneidplan;
     private LogWindow logWindow = null;
 
@@ -94,28 +86,39 @@ public class SchneidplanGUI extends Application {
         ObservableList<MenuItem> menuItems = bar.getMenus().get(0).getItems();
         about = menuItems.get(0);
         showLog = menuItems.get(1);
-        //top pane
-        chooseHTMLFile = (Button) sc.lookup("#choosehtml");
-        locationOfHTML = (TextField) sc.lookup("#htmlpath");
-        htmlPreview = ((WebView) sc.lookup("#webview")).getEngine();
-        //bottom pane
-        saveCSV = (Button) sc.lookup("#savecsv");
-        savexlSX = (Button) sc.lookup("#savexlsx");
-        locationOfCSV = (TextField) sc.lookup("#csvpath");
-        csvPreview = (TextArea) sc.lookup("#csvpreview");
         progressBar = (ProgressBar) sc.lookup("#progress");
+        imageview = (ImageView) sc.lookup("#imageview");
     }
 
     private void setUpFunctionality() {
-
-        //let the user choose a file and set the path into the text field and display it as preview and convert it in bacground
-        chooseHTMLFile.setOnAction(event -> {
-            chooseHTMLFileAction();
-        });
-        //let the user choose the location on where to write the file
-        savexlSX.setOnAction(event -> saveAction(new XLXSProcessor()));
-        saveCSV.setOnAction(actionEvent -> saveAction(new CSVProcessor()));
         showLog.setOnAction(actionEvent -> openLogWindow());
+        imageview.setOnDragOver(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                if (event.getGestureSource() != imageview
+                        && event.getDragboard().hasFiles()) {
+                    /* allow for both copying and moving, whatever user chooses */
+                    event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+                }
+                event.consume();
+            }
+        });
+        imageview.setOnDragDropped(new EventHandler<DragEvent>() {
+            @Override
+            public void handle(DragEvent event) {
+                Dragboard db = event.getDragboard();
+                boolean success = false;
+                if (db.hasFiles()) {
+                  CustomLogger.getInstance().log(db.getFiles().toString());
+                    success = true;
+                }
+                /* let the source know whether the string was successfully
+                 * transferred and used */
+                event.setDropCompleted(success);
+
+                event.consume();
+            }
+        });
     }
 
     private void openLogWindow() {
@@ -130,76 +133,5 @@ public class SchneidplanGUI extends Application {
         }
 
     }
-
-    private void convertAction() {
-        schneidplan = parser.parseSchneidplan(locationOfHTML.getText());
-        CSVProcessor proc = new CSVProcessor();
-        csvPreview.setText(proc.writeToString(schneidplan));
-        CustomLogger.getInstance().log(String.format("Schneidplan %s konvertiert", locationOfHTML.getText()));
-
-    }
-
-
-    private void saveAction(Processor processor) {
-        if (schneidplan != null) {
-            progressBar.setProgress(0);
-            String path = openFileChooser(processor.getFileExtensionName(), processor.getFileExtension(), FileActionType.SAVE);
-            locationOfCSV.setText(path);
-            progressBar.setProgress(0.2);
-            Thread t = new Thread(() -> {
-                try {
-                    processor.processAndWrite(schneidplan, path);
-                } catch (Exception e) {
-                    //TODO
-                }
-            });
-            progressBar.setProgress(100);
-            CustomLogger.getInstance().log(String.format("Schneidplan nach %s geschrieben", path));
-
-        } else {
-            CustomLogger.getInstance().log("Kein Schneidplan vorhanden. Input HTML wahrscheinlich fehlerhaft");
-
-        }
-        progressBar.setProgress(0);
-    }
-
-    private void chooseHTMLFileAction() {
-        String path = openFileChooser("HTML", "*.htm*", FileActionType.OPEN);
-        if (path != null) {
-            locationOfHTML.setText(path);
-
-            File file = new File(path);
-            URL url = null;
-            try {
-                htmlPreview.load(file.toURI().toURL().toString());
-            } catch (MalformedURLException e) {
-                CustomLogger.getInstance().log(e);
-
-            }
-            CustomLogger.getInstance().log(String.format("HTML File aus %s geladen", locationOfHTML.getText()));
-
-            convertAction();
-        }
-
-
-    }
-
-
-    private String openFileChooser(String showType, String filetype, FileActionType type) {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(showType, filetype);
-        fileChooser.getExtensionFilters().add(extFilter);
-
-        switch (type) {
-            case OPEN:
-                return fileChooser.showOpenDialog(stage).getAbsolutePath();
-
-            case SAVE:
-                return fileChooser.showSaveDialog(stage).getAbsolutePath();
-
-        }
-        return null;
-    }
-
 
 }
