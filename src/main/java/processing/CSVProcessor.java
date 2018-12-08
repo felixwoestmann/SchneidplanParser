@@ -56,7 +56,13 @@ public class CSVProcessor implements Processor {
 
     @Override
     public String getFileExtension() {
-        return "*.csv";
+        return ".csv";
+    }
+
+    @Override
+    public String getFileExtensionWithoutDot() {
+        String extension=getFileExtension();
+        return extension.substring(0,extension.length()-1);
     }
 
     @Override

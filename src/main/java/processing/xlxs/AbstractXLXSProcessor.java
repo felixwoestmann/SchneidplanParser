@@ -11,7 +11,7 @@ public abstract class AbstractXLXSProcessor implements Processor {
 
     @Override
     public String getFileExtension() {
-        return "*.xlsx";
+        return ".xlsx";
     }
 
     @Override
@@ -32,5 +32,11 @@ public abstract class AbstractXLXSProcessor implements Processor {
             CustomLogger.getInstance().log(e);
 
         }
+    }
+
+    @Override
+    public String getFileExtensionWithoutDot() {
+        String extension=getFileExtension();
+        return extension.substring(0,extension.length()-1);
     }
 }
