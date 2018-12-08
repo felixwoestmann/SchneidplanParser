@@ -49,7 +49,7 @@
                               <Font name="System Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="2. Wähle Datum" textAlignment="CENTER" GridPane.columnIndex="1">
+                        <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="2. Wähle Datum für Pläne" textAlignment="CENTER" GridPane.columnIndex="1">
                            <font>
                               <Font name="System Bold" size="25.0" />
                            </font>
@@ -64,11 +64,6 @@
                               <Image url="@../images/plus.png" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="dropzone_two" fitHeight="134.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <image>
-                              <Image url="@../images/plus.png" />
-                           </image>
-                        </ImageView>
                         <ImageView fx:id="dropzone_three" fitHeight="135.0" fitWidth="333.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <image>
                               <Image url="@../images/plus.png" />
@@ -77,6 +72,7 @@
                         <TextArea fx:id="text_one" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
                         <TextArea fx:id="text_two" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.vgrow="ALWAYS" />
                         <TextArea fx:id="text_three" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="datepicker_two" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
                      </children>
                   </GridPane>
                </children>
